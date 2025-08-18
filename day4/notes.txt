@@ -1,0 +1,161 @@
+//answer in interview
+*** answer should be ambiguous
+*** answer should be maintained 
+
+
+
+//input is a function 
+returns string
+
+function def input(
+    prompt: object = "",
+    /
+) -> str
+Read a string from standard input. 
+The trailing newline is stripped. means when u hit enter then it gets finished (till it it will work)
+
+The prompt string, if given, is printed to standard output without a
+trailing newline before reading input.
+
+If the user hits EOF (*nix: Ctrl-D, Windows: Ctrl-Z+Return), raise EOFError.
+On *nix systems, readline is used if available.
+here return means enter key
+
+
+//youtube video
+Dr Swamy with devil advocate
+
+***\t and tab spaces are different
+indentation will be based on spaces not \t  
+tab and spaces are not terminating charcters or stripping characters
+
+
+print(f' Sum = {my_function (10,20)})  this type is called binding
+
+
+
+function
+
+def my_function(num1 = 100,   num2 = 400):
+    return num1 + num2
+
+print(f'Sum ={my_function(10,20)}')
+print(f'Sum ={my_function(40,90)}')
+my_function()
+my_function(num1=25)
+my_function(num2 = 25)
+my_function(none,none) ## we get type error 
+my_function(none,10)
+my_function(num1 = 20 , num2 = 30)
+
+
+
+ # List in python
+ list as a DS 
+ What is DS?
+ Birth of a DS  like List/array
+ Implementation of an Array in memory using addressess and address arithmetic
+ USes 
+ Pros sand cons
+ Alternatives
+ Beyond List
+
+
+
+ List is a collection of items/data
+ All the items are stored in contagious  memory locations that is if you any 2 consecutive elemnets then there is no gap between them.
+ List is specifically in python need not be of the same type as in the case of c/c++/java etc 
+
+
+ what is DS?
+ The  process of Storing , Organising the data in an arranged way in the memory  
+
+Array 
+it is stored in contagious memory allocation(continuous)
+1-D array has 3 diff ways of address allocation
+2- D array has 4 diff ways 
+3- D array has 5 diff ways
+address + numbers = address 
+address - numbers = address 
+address - address = number of elements between these two address
+The Lookup  (accessing any element in the array) one unit time  
+Thus the efficiency of accessing an elemnt in the array is O(1)
+time efficiency is good but the space efficiency is bad 
+Reason: Usually array size is fixed .Because of Which there are almost always chances of either wasting of memory or shortage of memory
+
+n[1] acess 2nd element in the array*(n+1)
+1201 + 1 = 1205 is the address of 2nd element
+
+Assume size value is given by user at runtime
+float *numbers = new float[size];  ----->  memory allocated dynamically
+float[] numbers =new  float[size];
+float numbers[20]; ----->  memory allocated statically
+
+in c we should allocate or dealocate memory
+in java we can allocate but cannot dealocate
+in python neither can be done 
+
+
+
+unary operations is known as dereferencing operator
+
+why array index value staRTS  from Zero ? 
+
+pros and cons of array
+
+alternatives of array -----> to use linked list
+
+
+linked list
+time efficiency is big O(n)
+space efficiency is big O(n)
+
+
+
+List is a class in python
+We Create  object(s)  out of a class 
+When we say:
+n=10
+Here n is just a Number Its value 10 has not units like cm,mts,or mt/sec  or mts/sec Square
+Now say we have course which has a minimum duration and a maximum duration
+engg__course_duration =4
+units ='years'
+minimum_duration = 4
+unit='years'
+minimum_duration = 4
+maximum_duration = 8
+
+
+set methods are also called mutators --->means modifying
+accessor means that read only the functions -----> get
+
+ENCAPSULATION
+Abstraction
+
+Inheritance -----> means adding new features to existing code or websites
+
+
+Polymorphism -----> one problem many solutions 
+
+
+List methods
+   list() # creating  + initializing
+  append() add
+  pop()
+  insert()
+  remove()
+  sort()
+  reverse()
+  extend()  #extend list by appending elements from the iterable
+
+list1=[7,9,13,5]
+list2=[2,3,13]
+
+list1.extend(list2)
+print(list1)
+[7, 9, 13, 5, 2, 3, 13] #extends list2 and adds to list 1
+list1.append(list2) 
+print(list1)
+[7, 9, 13, 5, 2, 3, 13, [2, 3, 13]] #append in this adds one list element has one element im list1
+
+extend and append  methods return nothing 

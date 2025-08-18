@@ -1,0 +1,37 @@
+***in python the main function is implicit
+
+###  Incorrect way of calling range: (We get Exception)
+range()
+range(10,20,'abc')
+range('abc')
+
+*read only list is a tuple 
+
+****
+%o denotes octal
+% d denotes decimal
+%f  float
+
+%3d denotes give 3 spaces right alignment  
+if it is -ve  then it gives left alignment
+
+
+
+
+var_args 
+*var args is a  tuple
+
+yield means in simple -----> if someone is asking that value give that value  to them
+
+
+constructor 
+
+
+pymysql its like a translator
+
+
+ASCII  values chart ---- > explore  
+
+
+it is the constructed in the python  the 
+

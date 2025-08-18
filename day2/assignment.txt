@@ -1,0 +1,27 @@
+floating points numbers are stored using IEEE standards
+ relational operators explore
+
+
+
+ main assignments
+ Conditional programming:
+ DAY1
+ 1.Tax calculation problem
+ 2.Farmer problenm
+3. student result problem 
+4.Check if a number is perfect Square
+5.Check if a Year is Leapn Year
+
+
+DAY2:
+Problems on loops
+implement range function
+acceptb the number of lines of the shape and draw the following shapes:
+1. X shape
+2. hollow Square
+3.x inside hollow Square
+4  pascal triangle
+5  rhombus
+
+
+

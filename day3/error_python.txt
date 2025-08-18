@@ -1,0 +1,36 @@
+syntax error is not a runtime error
+
+name error  -   when the name is not declared   
+# example of name error
+num=9
+print(n)  then we will get name error
+
+
+IndexError: when the index of list is out of range
+
+ValueError :  one ituation when this ocurs is that when
+we try to cast some value for other 
+
+Example:
+import sys
+num=int(sys.argv[1])
+print(f'user given number is{num})
+
+invalid literal for int() with base 10:"math_table.py"
+
+
+
+%o denotes octal
+% d denotes decimal
+%f  float
+
+%3d denotes give 3 spaces right alignment  
+if it is -ve  then it gives left alignment
+
+
+TypeError : 
+*   range expected at most 3 arguments got 4
+*  'str' object cannot be interpreted as an integer
+
+
+ZeroDivisionError

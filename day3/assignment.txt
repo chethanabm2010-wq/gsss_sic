@@ -1,0 +1,34 @@
+learn output formatting
+
+why in python we do not have increment and decrement operators ?
+
+learn about    __main___  ->double underscore
+
+what is pep3 and pythonic
+
+
+learn these all topics from original websites that is from documentation given in these below websites
+dev.mozilla
+docs.oracle.com   java
+python.docs    python
+
+
+can we modify list which is list in  tuple ?
+
+
+///// explore about list comprehension
+
+we want to pass command line arguments to my_range() func which is same as rang() function in python
+
+for what purpose ---   argv stores file name and its use 
+
+
+why in python there is no implicit typecasting?
+example: sum= 'abc'+ 55 here in python we will get error 
+
+
+
+Day4
+in and out how function works     ------------>explore
+
+

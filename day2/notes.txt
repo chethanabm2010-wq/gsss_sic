@@ -1,0 +1,40 @@
+ARITHMETIC OPERATORS
+
++ - * / % ^ // ==
+
+
+All the arithmetic operators except the power operator have  Left to Right Associativity
+operator precedence where + and - have least precedence
+
+
+
+
+note:in a particular case 11111111 is not 255 when is it?  (*big endian and small endian concept)
+so in signed byte the max value and min value are :
+01111111= 127           
+10000000=-128
+
+5+6 can be calculated/solved  in binary -> 0101+0110=1011
+but we cannot solve 5+6.055 (bcoz 6.05 cannot be converted to binary)using binary but here we convert int to float and solve 
+--->>  we cannot perform operations which has diff data types.
+
+
+relational operators 
+<=,  >=   <  , >  , !=
+
+logical operator
+
+
+HOW TO SOLVE A Problems
+1  READ the problem CAREFULLY
+
+
+3 WRITE THE ALGORITHM  step by step procedure each step must be simple unambiguous and finite
+
+4 write the fake code(pseudo-code)
+
+5 code it !
+
+6. unit testing , cyclomatic complexity(to find number of paths in the logic),optimize the logic.
+
+
