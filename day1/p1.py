@@ -1,0 +1,1 @@
+print(print("I love Python"))
