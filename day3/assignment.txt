@@ -2,7 +2,7 @@ learn output formatting
 
 why in python we do not have increment and decrement operators ?
 
-learn about    __main___  ->double underscore
+learn about    __main___  -> double underscore
 
 what is pep3 and pythonic
 
@@ -32,3 +32,22 @@ Day4
 in and out how function works     ------------>explore
 
 
+Day5
+//why there is no indexError in case of Slicing?
+//Implement a function find similar(mimic) to the find method of string class
+from the above question we should check why we get 0 when we check for my_str('') gives index 0 whre -my_str='Mysuru'
+//find odd placed even digit number ----> program
+
+
+
+//explore about pdb  (python debugger) to run a python program
+
+
+code forces.com ---> solving problems for company
+code shef
+hacker rank -->
+
+
+
+//to do this we have to have extensive coding knowledge
+Solid principles

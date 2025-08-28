@@ -1,0 +1,73 @@
+Function CALL Stack:
+
+
+
+//special purpose register 
+*Accumulators ----->used to store intermediate results
+MAR:
+MDR:
+IR:  Instruction Register -> It holds address of the instruction that is currently running (getying executed)
+PC: Program Counter  --> It holds address of the next instruction to be executed
+SP:  STack pointer --> it hold the address of the top frame in the stack
+FP : Frame Pointer --> It holds address of the frame of function which is currently running
+
+Frame : A frame is memory allocated  to a function during runtime
+Contents 
+
+
+
+
+
+
+
+
+
+
+steps 
+code area
+global variable  (global data segment)
+stack area 
+heap(dynamic allocated memory)
+
+
+Recursion
+A function that calls itself. When the caller and callee are one at the same function
+
+stack gets overflow in Recursion
+Recursion should always have base condition
+base condition it should be putted---> before funct call
+
+Avoid Recursion when we can easily solve the problem iteratively
+
+
+draw.io ---> website for designing 
+
+my_str={{{}{}}}
+algorithm
+initialize Count
+open count =0
+close count =0
+scan each character
+{  ---> open count 
+         count=+1
+} ---->closed count 
+        count+=1
+       
+
+}
+
+
+
+find and index method are almost same
+but diff is find returns -1 if pattern is not found
+but in index method it doesn't return -1 when pattern not found it shows ValueError
+
+6634
+3466
+6643
+-3475
+when we do this recurseviely we get karpekars constant
+
+command line argument --->explore
+
+self -->

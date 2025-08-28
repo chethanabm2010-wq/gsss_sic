@@ -1,0 +1,62 @@
+List  Slicing
+
+capitals =['panjim','bhubaneshwar','guwahti','aizwal']
+print(capitals)  # by default entire list
+print(capitals[:]) # by default from beginning to end
+print(capitals[::])  # by default from beginning to end and default and increment of 1
+
+#Implement a function find similar(mimic) to the find method of string class
+
+Using problem Solving Techniques
+*Read the problem
+input: string 
+output; index integer value
+
+
+
+
+ ##  What is *args?
+args stands for arguments.
+* means "take any number of positional arguments and pack them into a tuple".
+It lets you call a function with variable number of inputs.
+Example
+
+def add_numbers(*args):
+    print(args)       # args is a tuple
+    return sum(args)
+
+print(add_numbers(1, 2))         # (1, 2) → 3
+print(add_numbers(1, 2, 3, 4))   # (1, 2, 3, 4) → 10
+
+
+
+String Class Methods
+find
+index
+capitalize
+upper
+lower
+
+
+
+
+
+find the nth term of the series :1 2 2 3 3  5 5 7 8 11 13 13
+it is the mixture of fibbonacci series and prime numbers
+fibo series is in even
+prime series is odd
+index    value
+1         1
+3         2
+5         3
+9         5
+
+input N 
+term = 0
+if n % 2 ==0
+
+
+
+Hacker Rank question
+
+Accept a Number from the user and find the next possible smallest number which is bigger than the given number having all the digits of the given number
