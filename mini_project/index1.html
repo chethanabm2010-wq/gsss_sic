@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Telecom Call Records Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header img { width: 100px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); margin-bottom: 10px; }
+        h1 { text-align: center; margin-bottom: 20px; }
+        .buttons { text-align: center; margin-bottom: 20px; }
+        .filter { text-align: center; margin-bottom: 20px; }
+        button { margin: 5px; padding: 10px 15px; border: none; background-color: #007bff; color: white; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #chart { width: 100%; max-width: 900px; margin: 0 auto; }
+        .checkbox-container { display: inline-block; text-align: left; margin: 5px 10px; }
+        #csvFileInput { margin: 10px 0; padding: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <img src="https://cdn-icons-png.flaticon.com/512/15/15874.png" alt="Telecom Logo">
+    <h1>Telecom Call Record Dashboard</h1>
+</div>
+
+<div class="buttons">
+    <input type="file" id="csvFileInput" accept=".csv"><br>
+    <button onclick="showAllCustomers()">All Customers Call Duration</button>
+    <button onclick="showTopCustomers()">Top 5 Customers</button>
+    <button onclick="showLongCalls()">Calls > 10 Minutes</button>
+    <button onclick="showIntlLongCalls()">International Calls > 30 Min</button>
+    <button onclick="showDailyCallSummary()">Daily Call Duration</button>
+    <button onclick="showCallTypePie()">Call Type Distribution</button>
+</div>
+
+<div class="filter">
+    <h3>Select Customers to Filter:</h3>
+    <div id="customerCheckboxes"></div>
+    <button onclick="plotFilteredTop5()">Top 5 Customers (Filtered)</button>
+    <button onclick="plotFilteredLongCalls()">Calls > 10 Min (Filtered)</button>
+    <button onclick="plotFilteredIntlCalls()">Intl > 30 Min (Filtered)</button>
+</div>
+
+<div id="chart"></div>
+
+<script>
+    let data = [];
+
+    // Load CSV
+    document.getElementById('csvFileInput').addEventListener('change', function(e){
+        const file = e.target.files[0];
+        if (!file) return;
+
+        Papa.parse(file, {
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+            complete: function(results){
+                data = results.data;
+                preprocessData();
+                populateCustomerCheckboxes();
+                alert("CSV loaded! Use buttons or filters to plot graphs.");
+            }
+        });
+    });
+
+    // Preprocess CSV
+    function preprocessData(){
+        data.forEach(row => {
+            row.CustomerID = row.CustomerID?.toString().trim();
+            row.CallStartTime = row.CallStartTime?.toString().trim();
+            row.CallEndTime = row.CallEndTime?.toString().trim();
+            row.CallType = row.CallType?.toString().trim();
+
+            row.callstarttime = new Date(row.CallStartTime);
+            row.callendtime = new Date(row.CallEndTime);
+            row.call_duration_minutes = (row.callendtime - row.callstarttime)/60000;
+
+            const type = row.CallType.toLowerCase();
+            if(['local','domestic'].includes(type)) row.call_type_category = 'Domestic';
+            else if(['std','isd','international'].includes(type)) row.call_type_category = 'International';
+            else row.call_type_category = 'Other';
+
+            row.call_date = row.callstarttime.toISOString().slice(0,10);
+        });
+    }
+
+    // Populate checkboxes for filtering
+    function populateCustomerCheckboxes(){
+        const container = document.getElementById('customerCheckboxes');
+        container.innerHTML = '';
+        const uniqueIDs = [...new Set(data.map(r => r.CustomerID))];
+        uniqueIDs.forEach(id => {
+            const div = document.createElement('div');
+            div.className = 'checkbox-container';
+            div.innerHTML = `<input type="checkbox" class="customerFilter" value="${id}" id="cust_${id}">
+                             <label for="cust_${id}">${id}</label>`;
+            container.appendChild(div);
+        });
+    }
+
+    function getSelectedCustomers(){
+        const checkboxes = document.querySelectorAll('.customerFilter:checked');
+        return Array.from(checkboxes).map(cb => cb.value);
+    }
+
+    // ===== Modified Buttons to Respect Checkboxes =====
+    function showAllCustomers(){
+        const selected = getSelectedCustomers();
+        const summary = {};
+        data.forEach(r => {
+            if(selected.length===0 || selected.includes(r.CustomerID)) {
+                summary[r.CustomerID] = (summary[r.CustomerID] || 0) + r.call_duration_minutes;
+            }
+        });
+        const trace = { x:Object.keys(summary), y:Object.values(summary).map(v=>v.toFixed(2)), type:'bar', marker:{color:'orange'} };
+        Plotly.newPlot('chart',[trace], {title:'Total Call Duration for Selected Customers'});
+    }
+
+    function showTopCustomers(){
+        const selected = getSelectedCustomers();
+        const summary = {};
+        data.forEach(r=>{
+            if(selected.length===0 || selected.includes(r.CustomerID))
+                summary[r.CustomerID] = (summary[r.CustomerID] || 0) + r.call_duration_minutes;
+        });
+        const sorted = Object.entries(summary).sort((a,b)=>b[1]-a[1]).slice(0,5);
+        const trace = {x:sorted.map(e=>e[0]), y:sorted.map(e=>e[1].toFixed(2)), type:'bar', marker:{color:'orange'}};
+        Plotly.newPlot('chart',[trace],{title:'Top 5 Customers'});
+    }
+
+    function showLongCalls(){
+        const selected = getSelectedCustomers();
+        const filtered = data.filter(r=>r.call_duration_minutes>10 && (selected.length===0 || selected.includes(r.CustomerID)));
+        const counts = {};
+        filtered.forEach(r=>counts[r.CustomerID]=(counts[r.CustomerID]||0)+1);
+        const trace = {x:Object.keys(counts), y:Object.values(counts), type:'bar', marker:{color:'green'}};
+        Plotly.newPlot('chart',[trace],{title:'Calls > 10 Minutes'});
+    }
+
+    function showIntlLongCalls(){
+        const selected = getSelectedCustomers();
+        const filtered = data.filter(r=>r.call_type_category==='International' && r.call_duration_minutes>30 && (selected.length===0 || selected.includes(r.CustomerID)));
+        const counts = {};
+        filtered.forEach(r=>counts[r.CustomerID]=(counts[r.CustomerID]||0)+1);
+        const trace = {x:Object.keys(counts),y:Object.values(counts),type:'bar',marker:{color:'red'}};
+        Plotly.newPlot('chart',[trace],{title:'International Calls > 30 Min'});
+    }
+
+    function showDailyCallSummary(){
+        const selected = getSelectedCustomers();
+        const daily = {};
+        data.forEach(r=>{
+            if(selected.length===0 || selected.includes(r.CustomerID)){
+                daily[r.call_date] = (daily[r.call_date] || 0) + r.call_duration_minutes;
+            }
+        });
+        const trace = {x:Object.keys(daily),y:Object.values(daily),type:'bar',marker:{color:'purple'}};
+        Plotly.newPlot('chart',[trace],{title:'Daily Call Duration'});
+    }
+
+    function showCallTypePie(){
+        const selected = getSelectedCustomers();
+        const typeCounts = {};
+        data.forEach(r=>{
+            if(selected.length===0 || selected.includes(r.CustomerID)){
+                typeCounts[r.call_type_category] = (typeCounts[r.call_type_category] || 0) + 1;
+            }
+        });
+        const trace = {labels:Object.keys(typeCounts),values:Object.values(typeCounts),type:'pie',textinfo:"label+percent"};
+        Plotly.newPlot('chart',[trace],{title:'Call Type Distribution'});
+    }
+
+    // Filtered Graphs (Checkbox buttons)
+    function plotFilteredTop5(){
+        const selected = getSelectedCustomers();
+        if(selected.length===0){ alert("Select at least one customer."); return; }
+        const summary = {};
+        data.forEach(r=>{ if(selected.includes(r.CustomerID)) summary[r.CustomerID]=(summary[r.CustomerID]||0)+r.call_duration_minutes; });
+        const sorted = Object.entries(summary).sort((a,b)=>b[1]-a[1]).slice(0,5);
+        const trace = {x:sorted.map(e=>e[0]),y:sorted.map(e=>e[1].toFixed(2)),type:'bar',marker:{color:'orange'}};
+        Plotly.newPlot('chart',[trace],{title:'Top 5 Customers (Filtered)'});
+    }
+
+    function plotFilteredLongCalls(){
+        const selected = getSelectedCustomers();
+        if(selected.length===0){ alert("Select at least one customer."); return; }
+        const filtered = data.filter(r=>r.call_duration_minutes>10 && selected.includes(r.CustomerID));
+        const counts = {};
+        filtered.forEach(r=>counts[r.CustomerID]=(counts[r.CustomerID]||0)+1);
+        const trace = {x:Object.keys(counts),y:Object.values(counts),type:'bar',marker:{color:'green'}};
+        Plotly.newPlot('chart',[trace],{title:'Calls > 10 Min (Filtered)'});
+    }
+
+    function plotFilteredIntlCalls(){
+        const selected = getSelectedCustomers();
+        if(selected.length===0){ alert("Select at least one customer."); return; }
+        const filtered = data.filter(r=>r.call_type_category==='International' && r.call_duration_minutes>30 && selected.includes(r.CustomerID));
+        const counts = {};
+        filtered.forEach(r=>counts[r.CustomerID]=(counts[r.CustomerID]||0)+1);
+        const trace = {x:Object.keys(counts),y:Object.values(counts),type:'bar',marker:{color:'red'}};
+        Plotly.newPlot('chart',[trace],{title:'Intl Calls > 30 Min (Filtered)'});
+    }
+
+</script>
+</body>
+</html>
