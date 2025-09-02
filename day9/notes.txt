@@ -1,0 +1,42 @@
+Bubble Sort
+
+
+
+Shallow copy
+deep copy
+call by reference
+call by value 
+
+
+pythonic ---- which is unique to this language
+
+Insertion Sort   Decrease And Conquer
+
+
+when we have to sort elements of linked list  we use Bubble Sort
+
+
+learn file hamdling
+generate input using random.randint
+
+
+UnboundLocalError :cannot access local variable j 
+
+assignment
+quick sort simulation program  ---- learn 
+
+
+
+stable sorting technique is merge sort 
+
+implement merge function without using duplicate arrays
+
+Bucket Sort
+ 
+ non comparsion sort is Radix Sort
+
+ finding the frequency of elements in the arrays
+
+bst 10 8 5  3 2 0 
+
+ 75 50
