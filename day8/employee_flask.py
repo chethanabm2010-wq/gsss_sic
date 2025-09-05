@@ -64,3 +64,4 @@ def employees_delete(id):
     return jsonify({'message': 'Employee is deleted', 'is_error': 0})
 
 app.run(debug=True)
+

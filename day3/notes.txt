@@ -35,3 +35,11 @@ ASCII  values chart ---- > explore
 
 it is the constructed in the python  the 
 
+def find_similar(s, sub, start=0, end=None):
+    if end is None:
+        end = len(s)
+
+    for i in range(start, end - len(sub) + 1):
+        if s[i:i+len(sub)] == sub:
+            return i
+    return -1
